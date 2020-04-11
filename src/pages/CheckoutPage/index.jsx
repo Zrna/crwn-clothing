@@ -6,6 +6,7 @@ import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector
 
 import './styles.scss';
 import CheckoutItem from '../../components/CheckoutItem';
+import StripeCheckoutButton from '../../components/StripeButton';
 
 const CheckoutPage = ({ cartItems, total }) => {
   return (
@@ -30,9 +31,13 @@ const CheckoutPage = ({ cartItems, total }) => {
       {
         cartItems.map(cartItem => <CheckoutItem key={cartItem.id} cartItem={cartItem} />)
       }
-      <div className='total'>
-        <span>TOTAL: ${total}</span>
+      <div className='total'>TOTAL: ${total}</div>
+      <div className='test-warning'>
+        *Please use the following test credit card for payments*
+        <br />
+        4242 4242 4242 4242 - Exp: 01/21 - CVV: 123
       </div>
+      <StripeCheckoutButton price={total} />
     </div>
   );
 };
