@@ -7,6 +7,11 @@ export const selectCollections = createSelector(
   shop => shop.collections
 );
 
+export const selectCollectionsForPreview = createSelector(
+  [selectCollections],
+  collections => Object.keys(collections).map(key => collections[key])
+);
+
 // list of elements inside of object instead of array (objects inside one object) is called data normalization
 export const selectCollection = collectionUrlParam => createSelector(
   [selectCollections],
