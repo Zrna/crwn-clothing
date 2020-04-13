@@ -6,31 +6,35 @@ import { createStructuredSelector } from 'reselect';
 import { toggleCartHidden } from '../../store/cart/cart.actions';
 import { selectCartItems } from '../../store/cart/cart.selectors';
 
-import './styles.scss';
+import {
+  CartDropdownContainer,
+  CartItemsContainer,
+  CartDropdownButton,
+  EmptyMessageContainer
+} from './styles';
 
-import CustomButton from '../CustomButton';
 import CartItem from '../CartItem';
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
   return (
-    <div className='cart-dropdown'>
-      <div className='cart-items'>
+    <CartDropdownContainer>
+      <CartItemsContainer>
         {
           cartItems.length ?
             cartItems.map(cartItem => (
               <CartItem key={cartItem.id} item={cartItem} />
             ))
             :
-            <span className='empty-message'>Your cart is empty.</span>
+            <EmptyMessageContainer>Your cart is empty.</EmptyMessageContainer>
         }
-      </div>
-      <CustomButton onClick={() => {
+      </CartItemsContainer>
+      <CartDropdownButton onClick={() => {
         history.push('/checkout');
         dispatch(toggleCartHidden());
       }}>
         GO TO CHECKOUT
-      </CustomButton>
-    </div>
+      </CartDropdownButton>
+    </CartDropdownContainer>
   );
 };
 
