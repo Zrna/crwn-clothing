@@ -11,7 +11,6 @@ import {
   HeaderContainer,
   LogoContainer,
   OptionsContainer,
-  OptionDiv,
   OptionLink
 } from './styles';
 
@@ -30,7 +29,7 @@ const Header = ({ currentUser, hidden }) => {
         <OptionLink className='option' to='/shop'>CONTACT</OptionLink>
         {
           currentUser ?
-            <OptionDiv onClick={() => auth.signOut()}>SIGN OUT</OptionDiv>
+            <OptionLink as='div' onClick={() => auth.signOut()}>SIGN OUT</OptionLink>
             :
             <OptionLink to='/signin'>SIGN IN</OptionLink>
         }
