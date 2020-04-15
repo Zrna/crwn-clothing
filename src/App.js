@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -11,31 +12,11 @@ import ShopPage from './pages/ShopPage';
 import SignInAndSignUpPage from './pages/SignInAndSignUpPage';
 import CheckoutPage from './pages/CheckoutPage';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './store/user/user.actions';
 import { selectCurrentUser } from './store/user/user.selectors';
 
 class App extends Component {
   unsubscribeFromAuth = null;
-
-  componentDidMount() {
-    const { setCurrentUser } = this.props;
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      } else {
-        setCurrentUser(userAuth);
-      }
-    });
-  }
   
   componentWillUnmount() {
     this.unsubscribeFromAuth();

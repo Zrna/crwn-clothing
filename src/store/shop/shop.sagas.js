@@ -16,8 +16,8 @@ export function* fetchCollectionsAsync() {
     const collectionRef = firestore.collection('collections');
     const snapshot = yield collectionRef.get();
     const collectionsMap = yield call(convertCollectionsSnapshotToMap, snapshot);
-    // previous line is the same as next line:
-    // const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+    // previous line is the same as next line - call is the same as await: 
+    // const collectionsMap = await convertCollectionsSnapshotToMap(snapshot);
 
     yield put (fetchCollectionsSuccess(collectionsMap));
   } catch (error) {
