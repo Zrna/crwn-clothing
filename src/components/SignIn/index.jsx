@@ -10,8 +10,10 @@ import {
 import FormInput from '../FormInput';
 import CustomButton from '../CustomButton';
 
-import { auth } from '../../firebase/firebase.utils';
-import { googleSignInStart } from '../../store/user/user.actions';
+import {
+  googleSignInStart,
+  emailSignInStart
+} from '../../store/user/user.actions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -26,18 +28,9 @@ class SignIn extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { emailSignInStart } = this.props;
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-
-      // this will clear the form
-      this.setState({
-        email: '',
-        password: ''
-      });
-    } catch (e) {
-      console.log('Something went wrong with sign in.', e);
-    }
+    emailSignInStart(email, password);
   }
 
   handleChange = e => {
@@ -86,7 +79,8 @@ class SignIn extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  googleSignInStart: () => dispatch(googleSignInStart())
+  googleSignInStart: () => dispatch(googleSignInStart()),
+  emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 });
 
 export default connect(null, mapDispatchToProps)(SignIn);

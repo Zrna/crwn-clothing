@@ -12,11 +12,16 @@ import ShopPage from './pages/ShopPage';
 import SignInAndSignUpPage from './pages/SignInAndSignUpPage';
 import CheckoutPage from './pages/CheckoutPage';
 
-import { setCurrentUser } from './store/user/user.actions';
 import { selectCurrentUser } from './store/user/user.selectors';
+import { checkuserSession } from './store/user/user.actions';
 
 class App extends Component {
   unsubscribeFromAuth = null;
+
+  componentDidMount = () => {
+    const { checkuserSession } = this.props;
+    checkuserSession();
+  }
   
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -42,7 +47,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  checkuserSession: () => dispatch(checkuserSession())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
