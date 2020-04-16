@@ -1,5 +1,6 @@
 /node_modules
-src/serviceWorker.js
-/build
-/public
-/src/App.test.js
+/client/node_modules
+/client/src/serviceWorker.js
+/client/build
+/client/public
+/client/src/App.test.js
